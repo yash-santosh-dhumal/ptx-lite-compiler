@@ -1,0 +1,3 @@
+// Deliberate error test: Accessing undeclared variable
+int a = 10;
+print(undeclared_var);

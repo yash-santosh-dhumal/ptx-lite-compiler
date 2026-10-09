@@ -1,0 +1,3 @@
+# Mini-Compiler Automated Verification Suite
+# All verification scripts use Python 3 standard library only:
+# - sys, os, subprocess, time, random, pathlib, argparse, typing

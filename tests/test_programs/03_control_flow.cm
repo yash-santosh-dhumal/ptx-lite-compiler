@@ -1,0 +1,41 @@
+// =============================================================================
+// 03_control_flow.cm — If-Else conditionals, compound logic (&&, ||), nesting
+// =============================================================================
+// Expected outputs:
+// 100    (from first if: score >= 90)
+// 200    (from else branch when score < 50)
+// 777    (from compound condition: age >= 18 && hasId == 1)
+// 888    (from short-circuit style OR condition)
+// =============================================================================
+
+int score = 95;
+
+if (score >= 90) {
+    print(100);
+} else {
+    print(0);
+}
+
+int failScore = 40;
+if (failScore >= 50) {
+    print(50);
+} else {
+    print(200);
+}
+
+int age = 21;
+int hasId = 1;
+
+if (age >= 18 && hasId == 1) {
+    print(777);
+} else {
+    print(999);
+}
+
+int flagA = 0;
+int flagB = 1;
+if (flagA == 1 || flagB == 1) {
+    print(888);
+} else {
+    print(444);
+}

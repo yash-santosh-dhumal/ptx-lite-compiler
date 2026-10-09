@@ -1,0 +1,34 @@
+// =============================================================================
+// 05_complex_math.cm — Iterative Factorial and Fibonacci calculation
+// =============================================================================
+// Expected outputs:
+// 120    (Factorial of 5: 1 * 2 * 3 * 4 * 5 = 120)
+// 55     (10th Fibonacci number: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55)
+// =============================================================================
+
+// --- Factorial of 5 ---
+int n = 5;
+int fact = 1;
+int cur = 1;
+
+while (cur <= n) {
+    fact = fact * cur;
+    cur = cur + 1;
+}
+
+print(fact);
+
+// --- 10th Fibonacci number ---
+int fib_count = 10;
+int prev = 0;
+int curr = 1;
+int step = 1;
+
+while (step < fib_count) {
+    int next_fib = prev + curr;
+    prev = curr;
+    curr = next_fib;
+    step = step + 1;
+}
+
+print(curr);
