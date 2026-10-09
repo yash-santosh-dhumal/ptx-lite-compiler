@@ -18,6 +18,7 @@ Tailored for engineers targeting **NVIDIA System Software Engineering** roles (s
 - [Directory Structure](#directory-structure)
 - [Language Specification](#language-specification)
 - [Virtual Instruction Set Architecture (ISA)](#virtual-instruction-set-architecture-isa)
+- [Quick Run Guide (Instant Verification)](#quick-run-guide-instant-verification)
 - [Quick Start & Build Instructions](#quick-start--build-instructions)
   - [Windows (PowerShell / MSVC / MinGW)](#windows-powershell--msvc--mingw)
   - [Linux / macOS (Bash / Clang / GCC)](#linux--macos-bash--clang--gcc)
@@ -156,6 +157,42 @@ The emitted intermediate representation is a linear, stack-oriented virtual ISA 
 | `OP_JUMP_IF_FALSE` | `<addr>` | Pops condition; jumps if $0$ |
 | `OP_PRINT` | None | Pops top and prints to stdout with newline |
 | `OP_HALT` | None | Terminates execution |
+
+---
+
+## ⚡ Quick Run Guide (Instant Verification)
+
+Execute and verify the entire pipeline immediately using Python 3 (no third-party packages or compilation required):
+
+### 1. Run the Regression Test Suite (Checks all 8 test programs)
+```powershell
+python verification/verify_runner.py
+```
+*Runs all 5 positive functional programs and 3 negative diagnostic error cases, reporting execution time and a 100% pass rate.*
+
+### 2. Execute a Complex Program (Factorial & Fibonacci)
+```powershell
+python verification/reference_compiler.py tests/test_programs/05_complex_math.cm
+```
+*Output: `120` (5!) and `55` (10th Fibonacci number).*
+
+### 3. Inspect the Abstract Syntax Tree (AST)
+```powershell
+python verification/reference_compiler.py --ast tests/test_programs/03_control_flow.cm
+```
+*Visualizes how the recursive descent parser breaks code down into logical blocks and condition expressions.*
+
+### 4. Inspect Virtual ISA Bytecode (Disassembly)
+```powershell
+python verification/reference_compiler.py --dump-bytecode tests/test_programs/04_while_loop.cm
+```
+*Disassembles the emitted stack-based instructions, jump targets, and memory operations (PTX-style IR).*
+
+### 5. Run the Differential Fuzzer (Stress Test)
+```powershell
+python verification/fuzzer.py
+```
+*Synthesizes 25 randomized math/logic programs on the fly, verifying execution against Python reference ground truth.*
 
 ---
 
