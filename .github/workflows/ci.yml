@@ -1,0 +1,38 @@
+name: CI Build & Automated Verification
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-verify:
+    name: Build & Verify (Ubuntu C++17 & Python 3)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up C++ Compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Configure CMake
+        run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build C++ Mini-Compiler
+        run: cmake --build build --config Release
+
+      - name: Run Automated Verification Testbed
+        run: python verification/verify_runner.py
+
+      - name: Run Differential Fuzzer
+        run: python verification/fuzzer.py
